@@ -22,14 +22,17 @@
             <td th:text="${category.id}"></td>
             <td th:text="${category.name}"></td>
             <td>
-                <a th:href="@{/categories/edit/{id}(id=${category.id})}">Edit</a>
-                <a th:href="@{/categories/delete/{id}(id=${category.id})}"
+                <a class="btn btn-primary"
+                   th:href="@{/categories/edit/{id}(id=${category.id})}">Edit</a>
+                <a class="btn btn-danger"
+                   th:href="@{/categories/delete/{id}(id=${category.id})}"
                    onclick="return confirm('Are you sure?')">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
+<th:block th:replace="~{layout::footer}"></th:block>
 <!--<div th:replace="fragments/footer :: footer"></div>-->
 </body>
 </html>

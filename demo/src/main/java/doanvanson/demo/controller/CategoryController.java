@@ -10,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,19 +33,46 @@ public class CategoryController {
 
     @GetMapping("/add")
     public String addCategoryForm(Model model){
-        model.addAttribute("categories", new Category());
+        model.addAttribute("category", new Category());
         return "category/add";
     }
 
     @PostMapping("/add")
     public String addCategory(@Valid @ModelAttribute("category") Category category, BindingResult bindingResult, Model model){
         // Truong hop co loi rang buoc thi tra lai view add
-        if (bindingResult.hasErrors()){
-            model.addAttribute("categories", categoryService.getAllCategories());
-            return "book/add";
-        }
 
         categoryService.addCategory(category);
-        return "redirect:/books";
+        return "redirect:/categories";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editBookFrom(@PathVariable("id") Long id, Model model){
+        Category find = categoryService.getCategoryById(id);
+        if(find != null){
+            model.addAttribute("category",find);
+            return "category/edit";
+        }else{
+            return "not-found";
+        }
+    }
+
+    @PostMapping("/edit")
+    public String editBook(@Valid Category updateCategory, Errors errors, Model model){
+        if (errors != null && errors.getErrorCount() > 0) {
+            return "category/edit";
+        }
+        else
+            categoryService.updateCategory(updateCategory);
+        return "redirect:/categories";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteBooks(@PathVariable("id") Long id){
+        Category find = categoryService.getCategoryById(id);
+        if(find!=null){
+            categoryService.deleteCategory(id);
+            return "redirect:/categories";
+        }
+        return "not-found";
     }
 }

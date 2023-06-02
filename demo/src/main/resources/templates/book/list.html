@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatile" content="IE=edge">
+  <meta name="viewport" content="width=device-with, initial-scale=1.0">
   <title>Book List</title>
   <link th:href="@{/css/style.css}" rel="stylesheet"/>
   <link th:replace="layout :: link-css"/>
@@ -29,14 +31,17 @@
       <td th:text="${book.price}"></td>
       <td th:text="${book.category.name}"></td>
       <td>
-        <a th:href="@{/books/edit/{id}(id=${book.id})}">Edit</a>
-        <a th:href="@{/books/delete/{id}(id=${book.id})}"
+        <a class="btn btn-primary"
+           th:href="@{/books/edit/{id}(id=${book.id})}">Edit</a>
+        <a class="btn btn-danger"
+           th:href="@{/books/delete/{id}(id=${book.id})}"
            onclick="return confirm('Are you sure?')">Delete</a>
       </td>
     </tr>
     </tbody>
   </table>
 </div>
+<th:block th:replace="~{layout::footer}"></th:block>
 <!--<div th:replace="fragments/footer :: footer"></div>-->
 </body>
 </html>

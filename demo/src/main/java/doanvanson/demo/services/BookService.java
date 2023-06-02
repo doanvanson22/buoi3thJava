@@ -20,8 +20,7 @@ public class BookService {
         return bookRepository.findById(id).orElse(null);
     }
 
-    public void addBook(Book book){
-        bookRepository.save(book);
+    public void addBook(Book book){bookRepository.save(book);
     }
 
     public void updateBook(Book book){
