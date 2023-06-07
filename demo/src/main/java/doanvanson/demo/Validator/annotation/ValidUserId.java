@@ -1,5 +1,6 @@
 package doanvanson.demo.Validator.annotation;
 
+import doanvanson.demo.Validator.ValidCategoryIdValidator;
 import doanvanson.demo.Validator.ValidUserIdValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -18,6 +19,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 public @interface ValidUserId {
     String message() default "Invalid User ID";
-    Class<?>[] group() default {};
+    Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
